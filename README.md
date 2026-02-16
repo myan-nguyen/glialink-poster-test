@@ -1,9 +1,8 @@
 
-## Getting Started
-
-First, run the development server:
+Run the development server (and docker compose up detached):
 
 ```bash
+docker compose up -d
 npm run dev
 npm run worker
 ```

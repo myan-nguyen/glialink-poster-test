@@ -5,10 +5,174 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  image     String?
+  createdAt DateTime @default(now())
+
+  projects Project[]
+}
+
+model Project {
+  id      String @id @default(cuid())
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  status     ProjectStatus @default(IMPORTING)
+  visibility Visibility    @default(DRAFT)
+
+  researcherName        String
+  researcherInstitution String
+  publicationUrl        String
+  intent                String?
+
+  // canonical structured summary output
+  title            String?
+  authors          String[] @default([])
+  researchQuestion String?
+  methodology      String?
+  results          String?
+  conclusions      String?
+
+  seeking   String[] @default([])
+  offering  String[] @default([])
+  tags      String[] @default([])
+  aiBullets String[] @default([])
+
+  sources  Source[]
+  document Document?
+  jobs     ImportJob[]
+  blocks   ProjectBlock[]
+  versions ProjectVersion[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Source {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+
+  kind    SourceKind
+  url     String?
+  fileKey String?
+
+  fetchedText String?
+  createdAt   DateTime @default(now())
+}
+
+model Document {
+  id        String  @id @default(cuid())
+  projectId String  @unique
+  project   Project @relation(fields: [projectId], references: [id])
+
+  extractedText String?
+  numPages      Int?
+  createdAt     DateTime @default(now())
+}
+
+model ImportJob {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+
+  status   JobStatus @default(QUEUED)
+  progress Int       @default(0)
+  message  String    @default("Queued")
+  error    String?
+
+  // ---- usage/cost tracking (new) ----
+  model            String?
+  inputTokens      Int      @default(0)
+  outputTokens     Int      @default(0)
+  cachedInputTokens Int     @default(0)
+  totalTokens      Int      @default(0)
+
+  inputCostUsd     Decimal  @default(0)
+  outputCostUsd    Decimal  @default(0)
+  totalCostUsd     Decimal  @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model ProjectBlock {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+
+  kind    BlockKind
+  title   String
+  content String
+  order   Int
+  source  BlockSource @default(PARSED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProjectVersion {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+
+  // snapshot of blocks + summary at publish/save moments
+  snapshotJson Json
+  note         String?
+  createdAt    DateTime @default(now())
+}
+
+enum ProjectStatus {
+  IMPORTING
+  DRAFT
+  PUBLISHED
+  FAILED
+}
+
+enum Visibility {
+  DRAFT
+  PRIVATE
+  LINK
+  PUBLIC
+}
+
+enum SourceKind {
+  PUBLICATION_URL
+  EXTRA_URL
+  PDF_UPLOAD
+  PDF_FROM_URL
+}
+
+enum JobStatus {
+  QUEUED
+  RUNNING
+  COMPLETED
+  FAILED
+}
+
+enum BlockKind {
+  TITLE
+  AUTHORS
+  RESEARCH_QUESTION
+  METHODOLOGY
+  RESULTS
+  CONCLUSIONS
+  AI_SYNTHESIS
+  OTHER
+}
+
+enum BlockSource {
+  PARSED
+  USER_EDITED
 }

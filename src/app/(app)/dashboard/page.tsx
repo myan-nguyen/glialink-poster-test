@@ -19,15 +19,15 @@ export default function DashboardPage() {
       {/* Top bar */}
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Recents</h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <h1 className="text-3xl font-semibold tracking-tight text-[#1A1A2E]">Recents</h1>
+          <p className="mt-2 text-base text-[#6B7280]">
             Find projects quickly, keep drafts organized, and discover inspiration.
           </p>
         </div>
 
         <Link
           href="/create-project"
-          className="inline-flex items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
+          className="inline-flex items-center justify-center rounded-md bg-[#6D28D9] px-5 py-3 text-sm font-medium text-white hover:bg-[#7C3AED] focus:outline-none focus:ring-2 focus:ring-[#6D28D9]/40"
         >
           Create project
         </Link>
@@ -37,13 +37,13 @@ export default function DashboardPage() {
       <RecommendedRow />
 
       {/* Tabs + filters bar (Figma-style) */}
-      <div className="flex flex-col gap-3 border-b pb-3 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-3 border-b border-black/10 pb-3 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setTab("recent")}
             className={[
-              "rounded-full px-3 py-1 text-sm",
-              tab === "recent" ? "bg-gray-900 text-white" : "text-gray-700 hover:bg-gray-900/5",
+              "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+              tab === "recent" ? "bg-[#6D28D9] text-white" : "text-[#6B7280] hover:bg-[#F3E8FF]",
             ].join(" ")}
           >
             Recently viewed
@@ -51,8 +51,8 @@ export default function DashboardPage() {
           <button
             onClick={() => setTab("shared-files")}
             className={[
-              "rounded-full px-3 py-1 text-sm",
-              tab === "shared-files" ? "bg-gray-900 text-white" : "text-gray-700 hover:bg-gray-900/5",
+              "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+              tab === "shared-files" ? "bg-[#6D28D9] text-white" : "text-[#6B7280] hover:bg-[#F3E8FF]",
             ].join(" ")}
           >
             Shared files
@@ -60,8 +60,8 @@ export default function DashboardPage() {
           <button
             onClick={() => setTab("shared-projects")}
             className={[
-              "rounded-full px-3 py-1 text-sm",
-              tab === "shared-projects" ? "bg-gray-900 text-white" : "text-gray-700 hover:bg-gray-900/5",
+              "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+              tab === "shared-projects" ? "bg-[#6D28D9] text-white" : "text-[#6B7280] hover:bg-[#F3E8FF]",
             ].join(" ")}
           >
             Shared projects
@@ -70,22 +70,22 @@ export default function DashboardPage() {
 
         {/* Right-side filters (mock UI) */}
         <div className="flex flex-wrap items-center gap-2">
-          <select className="rounded-md border bg-white px-3 py-2 text-sm text-gray-700 shadow-sm">
+          <select className="rounded-md border border-black/10 bg-white px-3 py-2 text-sm text-[#1A1A2E] shadow-sm focus:ring-2 focus:ring-[#6D28D9]/40">
             <option>All organizations</option>
             <option>My lab</option>
             <option>My institution</option>
           </select>
-          <select className="rounded-md border bg-white px-3 py-2 text-sm text-gray-700 shadow-sm">
+          <select className="rounded-md border border-black/10 bg-white px-3 py-2 text-sm text-[#1A1A2E] shadow-sm focus:ring-2 focus:ring-[#6D28D9]/40">
             <option>All files</option>
             <option>Drafts</option>
             <option>Published</option>
           </select>
-          <select className="rounded-md border bg-white px-3 py-2 text-sm text-gray-700 shadow-sm">
+          <select className="rounded-md border border-black/10 bg-white px-3 py-2 text-sm text-[#1A1A2E] shadow-sm focus:ring-2 focus:ring-[#6D28D9]/40">
             <option>Last viewed</option>
             <option>Last updated</option>
             <option>Title</option>
           </select>
-          <button className="rounded-md border bg-white px-3 py-2 text-sm text-gray-700 shadow-sm hover:bg-gray-50">
+          <button className="rounded-md border border-black/10 bg-white px-3 py-2 text-sm text-[#1A1A2E] shadow-sm hover:bg-[#F3E8FF] transition-colors">
             View
           </button>
         </div>

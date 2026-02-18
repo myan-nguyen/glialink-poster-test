@@ -1,21 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
 import { useSession } from "next-auth/react";
 
 export default function HomeNavbar() {
   const { status } = useSession();
 
-  const ctaHref = useMemo(() => {
-    if (status === "authenticated") return "/dashboard";
-    return "/auth";
-  }, [status]);
-
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b bg-white/75 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="font-semibold tracking-tight">
+      <div className="flex items-center justify-between px-4 py-4 sm:px-6">
+        <Link href="/" className="text-2xl font-bold tracking-tight">
           Glialink
         </Link>
 
@@ -34,12 +28,20 @@ export default function HomeNavbar() {
           </a>
         </nav>
 
-        <Link
-          href={ctaHref}
-          className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-        >
-          Get started
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/auth?mode=signup"
+            className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50"
+          >
+            Sign up
+          </Link>
+          <Link
+            href="/auth"
+            className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
+          >
+            Log in
+          </Link>
+        </div>
       </div>
     </header>
   );

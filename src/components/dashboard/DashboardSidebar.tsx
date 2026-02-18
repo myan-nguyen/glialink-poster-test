@@ -17,8 +17,8 @@ function NavItem({
     <Link
       href={href}
       className={[
-        "flex items-center justify-between rounded-lg px-3 py-2 text-sm transition",
-        active ? "bg-gray-900/5 text-gray-900" : "text-gray-700 hover:bg-gray-900/5",
+        "flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+        active ? "bg-[#F3E8FF] text-[#6D28D9]" : "text-[#6B7280] hover:bg-[#F3E8FF] hover:text-[#6D28D9]",
       ].join(" ")}
     >
       <span>{label}</span>
@@ -30,29 +30,29 @@ export default function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="h-full w-[280px] shrink-0 border-r bg-white/70 backdrop-blur">
+    <aside className="h-full w-[280px] shrink-0 border-r border-black/10 bg-white/70 backdrop-blur">
       <div className="flex h-full flex-col p-4">
         {/* Logo */}
-        <div className="mb-4 text-sm font-semibold tracking-tight">Glialink</div>
+        <div className="mb-4 text-lg font-bold tracking-tight text-[#1A1A2E]">Glialink</div>
 
         {/* Profile quick access */}
         <Link
           href="/profile"
-          className="mb-4 flex items-center gap-3 rounded-xl border bg-white/60 p-3 shadow-sm transition hover:bg-white"
+          className="mb-4 flex items-center gap-3 rounded-xl border border-black/10 bg-white/60 p-3 shadow-sm transition hover:bg-[#F3E8FF]"
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-sm font-semibold text-white">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#6D28D9] to-[#7C3AED] text-sm font-semibold text-white">
             MN
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-gray-900">Myan Nguyen</span>
-            <span className="text-xs text-gray-500">Brown University</span>
+            <span className="text-sm font-medium text-[#1A1A2E]">Myan Nguyen</span>
+            <span className="text-xs text-[#6B7280]">Brown University</span>
           </div>
         </Link>
 
         {/* Search */}
-        <div className="rounded-lg border bg-white px-3 py-2 shadow-sm">
+        <div className="rounded-lg border border-black/10 bg-white px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-[#6D28D9]/40">
           <input
-            className="w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
+            className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF] text-[#1A1A2E]"
             placeholder="Search projects..."
           />
         </div>
@@ -65,7 +65,7 @@ export default function DashboardSidebar() {
 
         {/* Workspace */}
         <div className="mt-6">
-          <div className="px-3 pb-2 text-xs font-medium text-gray-500">Workspace</div>
+          <div className="px-3 pb-2 text-xs font-semibold text-[#6B7280]">Workspace</div>
           <div className="space-y-1">
             <NavItem href="/dashboard?tab=drafts" label="Drafts" />
             <NavItem href="/dashboard?tab=all" label="All projects" />
@@ -82,21 +82,21 @@ export default function DashboardSidebar() {
 
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="w-full rounded-lg border bg-white px-3 py-2 text-left text-sm text-gray-700 shadow-sm transition hover:bg-gray-50"
+            className="w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-left text-sm text-[#1A1A2E] shadow-sm transition hover:bg-[#F3E8FF]"
           >
             Log out
           </button>
         </div>
 
         {/* Tip Card */}
-        <div className="mt-4 rounded-xl border bg-white/70 p-3 text-xs text-gray-600 shadow-sm">
-          <div className="font-medium text-gray-900">Tip</div>
+        <div className="mt-4 rounded-xl border border-black/10 bg-white/70 p-3 text-xs text-[#6B7280] shadow-sm">
+          <div className="font-semibold text-[#1A1A2E]">Tip</div>
           <div className="mt-1">
             Your dashboard will later support shared projects, community browsing, and institution spaces.
           </div>
           <div className="mt-2 flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
-            Prototype mode
+            <span className="h-2 w-2 rounded-full bg-gradient-to-r from-[#6D28D9] to-[#7C3AED]" />
+            <span className="font-medium">Prototype mode</span>
           </div>
         </div>
       </div>

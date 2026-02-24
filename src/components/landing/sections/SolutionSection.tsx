@@ -21,10 +21,7 @@ export default function SolutionSection() {
               key={c.title}
               className="rounded-xl border border-black/10 bg-white p-6"
             >
-              <div className="text-2xl" aria-hidden>
-                {c.icon}
-              </div>
-              <div className="mt-3 text-base font-semibold">{c.title}</div>
+              <div className="text-base font-semibold">{c.title}</div>
               <p className="mt-2 text-sm leading-relaxed text-[#6B7280]">
                 {c.body}
               </p>
